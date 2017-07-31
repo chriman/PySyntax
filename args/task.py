@@ -8,11 +8,14 @@ from ate.exception import ParamsError
 
 def load_yaml_file(testcase_path):
     with open(testcase_path, 'r+') as stream:
+        print('yaml.load(stream) ----> %s\n' % yaml.load(stream))
         return yaml.load(stream)
+
 
 def load_json_file(testcase_path):
     with open(testcase_path) as data_file:
         return json.load(data_file)
+
 
 def load_testcases(testcase_path):
     file_suffix = os.path.splitext(testcase_path)[1]
@@ -23,6 +26,7 @@ def load_testcases(testcase_path):
     else:
         # '' or other suffix
         raise ParamsError("Bad testcase file name!")
+
 
 def load_testcases_by_path(testset_path):
     if os.path.isfile(testset_path):
@@ -45,19 +49,9 @@ def load_testcases_by_path(testset_path):
         return [testset]
 
 
-def create_suite():
-
-
-
 def create_task(testset_path):
     """ create test task suite with specified testcase path.
         each task suite may include one or several test suite.
     """
-    task_suite = unittest.TestSuite()      # 测试套件
+    task_suite = unittest.TestSuite()  # 测试套件
     testsets = load_testcases_by_path(testset_path)
-
-    for testset in testsets:
-        suite = create_suite(testset)
-        task_suite.addTest(suite)
-
-    return task_suite
