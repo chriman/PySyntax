@@ -2,6 +2,8 @@
 
 import argparse
 
+from args import create_task
+
 parser = argparse.ArgumentParser(
         description='Api Test Engine.')
 parser.add_argument(
@@ -25,4 +27,7 @@ if args.version:
 
 for testset_path in args.testset_paths:
     testset_path = testset_path.strip('/')
-    print('test_path : %s' % testset_path)
+    print("testset_path ----> %s" % testset_path)
+    task_suite = create_task(testset_path)
+
+
